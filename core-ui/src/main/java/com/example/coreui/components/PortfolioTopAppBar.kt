@@ -10,8 +10,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import com.example.coreui.Indigo
-import com.example.coreui.Strings
+import com.example.coreui.commonUtils.Indigo
+import com.example.coreui.commonUtils.Strings
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

@@ -13,8 +13,8 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import com.example.coreui.R
-import com.example.coreui.Strings.CD_PORTFOLIO_ICON
-import com.example.coreui.Strings.NAV_PORTFOLIO
+import com.example.coreui.commonUtils.Strings.CD_PORTFOLIO_ICON
+import com.example.coreui.commonUtils.Strings.NAV_PORTFOLIO
 
 @Composable
 fun PortfolioBottomNavigation(

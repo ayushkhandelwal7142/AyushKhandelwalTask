@@ -1,9 +1,12 @@
 package com.example.feature.holdings.presentation.viewmodel
 
+import com.example.feature.holdings.domain.exception.NetworkException
+import com.example.feature.holdings.domain.exception.NoInternetException
 import com.example.feature.holdings.domain.model.Holding
 import com.example.feature.holdings.domain.repository.HoldingsRepository
 import com.example.feature.holdings.domain.usecase.ComputePortfolioSummary
 import com.example.feature.holdings.presentation.model.PortfolioUiRenderedState
+import com.example.feature.holdings.presentation.model.PortfolioUiRenderedState.SUCCESS
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.Dispatchers
@@ -58,7 +61,7 @@ class PortfolioViewModelTest {
         advanceUntilIdle()
 
         val state = systemUnderTest.state.value
-        assertTrue(state.uiRenderedState is PortfolioUiRenderedState.SUCCESS)
+        assertTrue(state.uiRenderedState is SUCCESS)
         assertEquals(1, state.holdings.size)
         assertEquals("", state.holdings[0].symbol)
         assertNotNull(state.summary)
@@ -136,7 +139,7 @@ class PortfolioViewModelTest {
         advanceUntilIdle()
 
         val state = systemUnderTest.state.value
-        assertTrue(state.uiRenderedState is PortfolioUiRenderedState.SUCCESS)
+        assertTrue(state.uiRenderedState is SUCCESS)
         assertTrue(state.holdings.isEmpty())
         assertNotNull(state.summary)
         assertEquals(0.0, state.summary!!.currentValue, 0.01)
@@ -168,12 +171,41 @@ class PortfolioViewModelTest {
         advanceUntilIdle()
 
         val state = systemUnderTest.state.value
-        assertTrue(state.uiRenderedState is PortfolioUiRenderedState.SUCCESS)
+        assertTrue(state.uiRenderedState is SUCCESS)
         assertEquals(2, state.holdings.size)
 
         val summary = state.summary!!
         assertEquals(2500.0, summary.currentValue, 0.01)
         assertEquals(2500.0, summary.totalInvestment, 0.01)
         assertEquals(0.0, summary.totalPnl, 0.01)
+    }
+
+    @Test
+    fun `refresh updates state to NO_INTERNET when NoInternetException is thrown`() = runTest {
+        coEvery { repository.fetchHoldings() } throws NoInternetException()
+
+        systemUnderTest.refresh()
+        advanceUntilIdle()
+
+        val state = systemUnderTest.state.value
+        assertTrue(state.uiRenderedState is PortfolioUiRenderedState.NO_INTERNET)
+        assertTrue(state.holdings.isEmpty())
+        assertTrue(state.summary == null)
+    }
+
+    @Test
+    fun `refresh updates state to ERROR when NetworkException is thrown`() = runTest {
+        val errorMessage = "Network error occurred"
+        coEvery { repository.fetchHoldings() } throws NetworkException(errorMessage)
+
+        systemUnderTest.refresh()
+        advanceUntilIdle()
+
+        val state = systemUnderTest.state.value
+        assertTrue(state.uiRenderedState is PortfolioUiRenderedState.ERROR)
+        val errorState = state.uiRenderedState as PortfolioUiRenderedState.ERROR
+        assertEquals(errorMessage, errorState.message)
+        assertTrue(state.holdings.isEmpty())
+        assertTrue(state.summary == null)
     }
 }

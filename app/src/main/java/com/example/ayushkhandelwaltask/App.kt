@@ -2,6 +2,7 @@ package com.example.ayushkhandelwaltask
 
 import android.app.Application
 import com.example.ayushkhandelwaltask.di.AppComponent
+import com.example.ayushkhandelwaltask.di.ContextModule
 import com.example.ayushkhandelwaltask.di.DaggerAppComponent
 
 class App : Application() {
@@ -10,7 +11,9 @@ class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        appComponent = DaggerAppComponent.create()
+        appComponent = DaggerAppComponent.builder()
+            .contextModule(ContextModule(this))
+            .build()
     }
 }
 

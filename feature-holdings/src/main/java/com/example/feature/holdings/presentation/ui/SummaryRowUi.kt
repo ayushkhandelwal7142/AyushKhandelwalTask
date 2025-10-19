@@ -8,10 +8,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
-import com.example.coreui.Dimens.SPACING_NORMAL
-import com.example.coreui.LossRed
-import com.example.coreui.ProfitGreen
-import com.example.coreui.Strings.FORMAT_CURRENCY
+import com.example.coreui.commonUtils.Dimens.SPACING_NORMAL
+import com.example.coreui.commonUtils.LossRed
+import com.example.coreui.commonUtils.ProfitGreen
+import com.example.coreui.commonUtils.Strings.FORMAT_CURRENCY
 import java.util.Locale
 
 @Composable

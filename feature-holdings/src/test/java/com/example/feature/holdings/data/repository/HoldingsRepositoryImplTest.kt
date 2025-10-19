@@ -1,27 +1,39 @@
 package com.example.feature.holdings.data.repository
 
+import android.content.Context
+import com.example.coreui.commonUtils.NetworkUtils
 import com.example.feature.holdings.data.remote.api.HoldingsApi
 import com.example.feature.holdings.data.remote.dto.HoldingDto
 import com.example.feature.holdings.data.remote.dto.HoldingsDataDto
 import com.example.feature.holdings.data.remote.dto.HoldingsResponseDto
+import com.example.feature.holdings.domain.exception.NetworkException
+import com.example.feature.holdings.domain.exception.NoInternetException
 import io.mockk.coEvery
+import io.mockk.every
 import io.mockk.mockk
+import io.mockk.mockkObject
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
+import java.io.IOException
 
 class HoldingsRepositoryImplTest {
 
     private lateinit var api: HoldingsApi
+    private lateinit var context: Context
     private lateinit var systemUnderTest: HoldingsRepositoryImpl
 
     @Before
     fun setUp() {
         api = mockk()
-        systemUnderTest = HoldingsRepositoryImpl(api)
+        context = mockk()
+        systemUnderTest = HoldingsRepositoryImpl(api, context)
+
+        mockkObject(NetworkUtils)
+        every { NetworkUtils.isInternetAvailable(context) } returns true
     }
 
     @Test
@@ -150,7 +162,8 @@ class HoldingsRepositoryImplTest {
             )
         }
         val mockResponse = HoldingsResponseDto(
-            data = HoldingsDataDto(userHolding = largeHoldingsList))
+            data = HoldingsDataDto(userHolding = largeHoldingsList)
+        )
         coEvery { api.getHoldings() } returns mockResponse
 
         val result = systemUnderTest.fetchHoldings()
@@ -167,5 +180,43 @@ class HoldingsRepositoryImplTest {
         assertEquals("STOCK1000", lastHolding.symbol)
         assertEquals(1000, lastHolding.quantity)
         assertEquals(10000.0, lastHolding.lastTradedPrice, 0.01)
+    }
+
+    @Test
+    fun `fetchHoldings throws NoInternetException when no internet`() = runTest {
+        every { NetworkUtils.isInternetAvailable(context) } returns false
+
+        try {
+            systemUnderTest.fetchHoldings()
+            assertTrue("Expected NoInternetException", false)
+        } catch (e: NoInternetException) {
+            // Expected exception
+        }
+    }
+
+    @Test
+    fun `fetchHoldings throws NetworkException on IOException`() = runTest {
+        every { NetworkUtils.isInternetAvailable(context) } returns true
+        coEvery { api.getHoldings() } throws IOException("Network error")
+
+        try {
+            systemUnderTest.fetchHoldings()
+            assertTrue("Expected NetworkException", false)
+        } catch (e: NetworkException) {
+            assertTrue(e.message?.contains("Network error") == true)
+        }
+    }
+
+    @Test
+    fun `fetchHoldings throws NoInternetException on IOException when no internet`() = runTest {
+        every { NetworkUtils.isInternetAvailable(context) } returns false
+        coEvery { api.getHoldings() } throws IOException("Network error")
+
+        try {
+            systemUnderTest.fetchHoldings()
+            assertTrue("Expected NoInternetException", false)
+        } catch (e: NoInternetException) {
+            // Expected exception
+        }
     }
 }

@@ -13,5 +13,6 @@ data class PortfolioUiState(
 sealed class PortfolioUiRenderedState {
     object LOADING : PortfolioUiRenderedState()
     data class ERROR(val message: String) : PortfolioUiRenderedState()
+    object NO_INTERNET : PortfolioUiRenderedState()
     object SUCCESS : PortfolioUiRenderedState()
 }

@@ -1,4 +1,4 @@
-package com.example.coreui
+package com.example.coreui.commonUtils
 
 import androidx.compose.ui.graphics.Color
 

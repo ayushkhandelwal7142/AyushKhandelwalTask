@@ -8,6 +8,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import com.example.feature.holdings.presentation.model.PortfolioUiRenderedState.ERROR
 import com.example.feature.holdings.presentation.model.PortfolioUiRenderedState.LOADING
+import com.example.feature.holdings.presentation.model.PortfolioUiRenderedState.NO_INTERNET
 import com.example.feature.holdings.presentation.model.PortfolioUiRenderedState.SUCCESS
 import com.example.feature.holdings.presentation.viewmodel.PortfolioViewModel
 
@@ -26,6 +27,10 @@ fun PortfolioScreen(
 
             is ERROR -> {
                 ErrorStateText(message = (state.uiRenderedState as ERROR).message)
+            }
+
+            is NO_INTERNET -> {
+                NoInternetState(onRetry = viewModel::refresh)
             }
 
             is SUCCESS -> {

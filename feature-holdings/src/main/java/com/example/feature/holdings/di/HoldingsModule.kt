@@ -1,5 +1,6 @@
 package com.example.feature.holdings.di
 
+import android.content.Context
 import com.example.feature.holdings.data.remote.api.HoldingsApi
 import com.example.feature.holdings.data.repository.HoldingsRepositoryImpl
 import com.example.feature.holdings.domain.repository.HoldingsRepository
@@ -17,8 +18,8 @@ class HoldingsModule {
 
     @Provides
     @Singleton
-    fun provideHoldingsRepository(api: HoldingsApi): HoldingsRepository =
-        HoldingsRepositoryImpl(api)
+    fun provideHoldingsRepository(api: HoldingsApi, context: Context): HoldingsRepository =
+        HoldingsRepositoryImpl(api, context)
 }
 
 
