@@ -10,12 +10,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
+import com.example.coreui.AyushTaskTheme
 import com.example.feature.holdings.domain.repository.HoldingsRepository
 import com.example.feature.holdings.domain.usecase.ComputePortfolioSummary
+import com.example.feature.holdings.presentation.ui.PortfolioScreen
 import com.example.feature.holdings.presentation.viewmodel.PortfolioViewModel
 import com.example.feature.holdings.presentation.viewmodel.PortfolioViewModelFactory
-import com.example.feature.holdings.ui.PortfolioScreen
-import com.example.coreui.AyushTaskTheme
 import javax.inject.Inject
 
 class MainActivity : ComponentActivity() {
