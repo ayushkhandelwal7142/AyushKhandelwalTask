@@ -51,6 +51,12 @@ dependencies {
     implementation(libs.retrofit.gson)
     implementation(libs.okhttp.logging)
     implementation(libs.gson)
+
+    // Testing
+    testImplementation(libs.junit)
+    testImplementation(libs.mockk)
+    testImplementation(libs.coroutines.core)
+    testImplementation(libs.kotlinx.coroutines.test)
 }
 
 
