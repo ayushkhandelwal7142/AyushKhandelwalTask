@@ -14,14 +14,25 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import com.example.coreui.Dimens.SPACING_LARGE
+import com.example.coreui.Dimens.SPACING_NORMAL
+import com.example.coreui.Dimens.SPACING_SMALL
+import com.example.coreui.Dimens.TEXT_SIZE_LARGE
+import com.example.coreui.Dimens.TEXT_SIZE_SMALL
+import com.example.coreui.DividerGray
+import com.example.coreui.Gray
+import com.example.coreui.LossRed
+import com.example.coreui.ProfitGreen
+import com.example.coreui.Strings.CURRENCY_SYMBOL
+import com.example.coreui.Strings.FORMAT_DECIMAL
+import com.example.coreui.Strings.LABEL_LTP
+import com.example.coreui.Strings.LABEL_NET_QTY
+import com.example.coreui.Strings.LABEL_PNL
 import com.example.feature.holdings.domain.model.Holding
 import java.util.Locale
 
@@ -30,7 +41,10 @@ fun HoldingRow(holding: Holding) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 16.dp, vertical = 12.dp),
+            .padding(
+                horizontal = SPACING_LARGE,
+                vertical = SPACING_NORMAL
+            ),
     ) {
         Row(
             Modifier.fillMaxWidth(),
@@ -46,16 +60,16 @@ fun HoldingRow(holding: Holding) {
                     text = buildAnnotatedString {
                         withStyle(
                             style = SpanStyle(
-                                fontSize = 12.sp,
-                                color = Color.Gray,
+                                fontSize = TEXT_SIZE_SMALL,
+                                color = Gray,
                             )
                         ) {
-                            append("NET QTY: ")
+                            append(LABEL_NET_QTY)
                         }
                         withStyle(
                             style = SpanStyle(
                                 fontWeight = FontWeight.Bold,
-                                fontSize = 18.sp,
+                                fontSize = TEXT_SIZE_LARGE,
                             )
                         ) {
                             append("${holding.quantity}")
@@ -70,35 +84,35 @@ fun HoldingRow(holding: Holding) {
             ) {
                 val formattedLtpString = String.format(
                     locale = Locale.US,
-                    format = "%.2f",
+                    format = FORMAT_DECIMAL,
                     holding.lastTradedPrice,
                 )
                 Text(
                     text = buildAnnotatedString {
                         withStyle(
                             style = SpanStyle(
-                                fontSize = 12.sp,
-                                color = Color.Gray,
+                                fontSize = TEXT_SIZE_SMALL,
+                                color = Gray,
                             )
                         ) {
-                            append("LTP: ")
+                            append(LABEL_LTP)
                         }
                         withStyle(
                             style = SpanStyle(
-                                fontSize = 18.sp,
+                                fontSize = TEXT_SIZE_LARGE,
                             )
                         ) {
-                            append("₹ $formattedLtpString")
+                            append("$CURRENCY_SYMBOL $formattedLtpString")
                         }
                     },
                     textAlign = TextAlign.Center,
                 )
 
                 val pnl = (holding.lastTradedPrice - holding.averagePrice) * holding.quantity
-                val color = if (pnl >= 0) Color(color = 0xFF1B5E20) else Color(color = 0xFFC62828)
+                val color = if (pnl >= 0) ProfitGreen else LossRed
                 val formattedPnlString = String.format(
                     locale = Locale.US,
-                    format = "%.2f",
+                    format = FORMAT_DECIMAL,
                     pnl,
                 )
 
@@ -106,26 +120,26 @@ fun HoldingRow(holding: Holding) {
                     text = buildAnnotatedString {
                         withStyle(
                             style = SpanStyle(
-                                fontSize = 12.sp,
-                                color = Color.Gray,
+                                fontSize = TEXT_SIZE_SMALL,
+                                color = Gray,
                             )
                         ) {
-                            append("P&L: ")
+                            append(LABEL_PNL)
                         }
                         withStyle(
                             style = SpanStyle(
-                                fontSize = 18.sp,
+                                fontSize = TEXT_SIZE_LARGE,
                                 color = color,
                             )
                         ) {
-                            append("₹ $formattedPnlString")
+                            append("$CURRENCY_SYMBOL $formattedPnlString")
                         }
                     },
                     textAlign = TextAlign.Center,
                 )
             }
         }
-        Spacer(Modifier.height(8.dp))
-        HorizontalDivider(modifier = Modifier.background(Color(color = 0x11000000)))
+        Spacer(Modifier.height(SPACING_SMALL))
+        HorizontalDivider(modifier = Modifier.background(DividerGray))
     }
 }

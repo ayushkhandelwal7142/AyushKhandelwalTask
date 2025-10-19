@@ -14,9 +14,16 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.unit.dp
+import com.example.coreui.Dimens.CORNER_RADIUS_MEDIUM
+import com.example.coreui.Dimens.SPACING_MEDIUM
+import com.example.coreui.LightGray
+import com.example.coreui.Strings.CD_ARROW_DOWN
+import com.example.coreui.Strings.CD_ARROW_UP
+import com.example.coreui.Strings.LABEL_CURRENT_VALUE
+import com.example.coreui.Strings.LABEL_TODAY_PNL
+import com.example.coreui.Strings.LABEL_TOTAL_INVESTMENT
+import com.example.coreui.Strings.LABEL_TOTAL_PNL
 import com.example.feature.holdings.R
 import com.example.feature.holdings.domain.model.Holding
 import com.example.feature.holdings.domain.model.PortfolioSummary
@@ -41,22 +48,22 @@ fun PortfolioContent(
                 .clickable { onToggle() }
                 .animateContentSize()
                 .background(
-                    color = Color.LightGray,
-                    shape = RoundedCornerShape(size = 8.dp),
+                    color = LightGray,
+                    shape = RoundedCornerShape(size = CORNER_RADIUS_MEDIUM),
                 )
-                .padding(horizontal = 10.dp),
+                .padding(horizontal = SPACING_MEDIUM),
         ) {
             if (summary != null) {
                 if (isExpanded) {
-                    SummaryRow(label = "Current value*", value = summary.currentValue)
-                    SummaryRow(label = "Total investment*", value = summary.totalInvestment)
-                    SummaryRow(label = "Today's Profit & Loss*", value = summary.todayPnl)
+                    SummaryRow(label = LABEL_CURRENT_VALUE, value = summary.currentValue)
+                    SummaryRow(label = LABEL_TOTAL_INVESTMENT, value = summary.totalInvestment)
+                    SummaryRow(label = LABEL_TODAY_PNL, value = summary.todayPnl)
                     HorizontalDivider()
                 }
-                SummaryRow(label = "Profit & Loss*", value = summary.totalPnl, bold = true) {
+                SummaryRow(label = LABEL_TOTAL_PNL, value = summary.totalPnl, bold = true) {
                     Icon(
                         painter = painterResource(id = if (isExpanded) R.drawable.ic_arrow_down else R.drawable.ic_arrow_up),
-                        contentDescription = "Up/Down arrow",
+                        contentDescription = if (isExpanded) CD_ARROW_DOWN else CD_ARROW_UP,
                     )
                 }
             }

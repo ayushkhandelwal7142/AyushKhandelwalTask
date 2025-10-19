@@ -13,6 +13,8 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import com.example.coreui.R
+import com.example.coreui.Strings.CD_PORTFOLIO_ICON
+import com.example.coreui.Strings.NAV_PORTFOLIO
 
 @Composable
 fun PortfolioBottomNavigation(
@@ -29,12 +31,12 @@ fun PortfolioBottomNavigation(
             icon = {
                 Icon(
                     imageVector = ImageVector.vectorResource(id = R.drawable.ic_portfolio),
-                    contentDescription = "Portfolio"
+                    contentDescription = CD_PORTFOLIO_ICON
                 )
             },
             label = {
                 Text(
-                    text = "Portfolio",
+                    text = NAV_PORTFOLIO,
                     fontWeight = if (isPortfolioSelected) FontWeight.Bold else FontWeight.Normal
                 )
             },

@@ -10,12 +10,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import com.example.coreui.Indigo
+import com.example.coreui.Strings
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PortfolioTopAppBar(
     modifier: Modifier = Modifier,
-    title: String = "PORTFOLIO"
+    title: String = Strings.PORTFOLIO_TITLE
 ) {
     CenterAlignedTopAppBar(
         title = {
@@ -27,7 +29,7 @@ fun PortfolioTopAppBar(
             )
         },
         colors = TopAppBarDefaults.topAppBarColors(
-            containerColor = Color(0xFF3F51B5),
+            containerColor = Indigo,
             titleContentColor = MaterialTheme.colorScheme.onSurface
         ),
         modifier = modifier.fillMaxWidth()

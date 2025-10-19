@@ -7,7 +7,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import com.example.coreui.LossRed
 
 @Composable
 fun ErrorStateText(message: String) {
@@ -16,6 +16,6 @@ fun ErrorStateText(message: String) {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        Text(text = message, color = Color.Red)
+        Text(text = message, color = LossRed)
     }
 }

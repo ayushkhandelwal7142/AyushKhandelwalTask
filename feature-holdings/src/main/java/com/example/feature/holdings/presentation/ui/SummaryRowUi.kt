@@ -7,9 +7,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
+import com.example.coreui.Dimens.SPACING_NORMAL
+import com.example.coreui.LossRed
+import com.example.coreui.ProfitGreen
+import com.example.coreui.Strings.FORMAT_CURRENCY
 import java.util.Locale
 
 @Composable
@@ -22,7 +24,7 @@ fun SummaryRow(
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 12.dp),
+            .padding(vertical = SPACING_NORMAL),
         horizontalArrangement = Arrangement.SpaceBetween,
     ) {
         Row {
@@ -33,13 +35,10 @@ fun SummaryRow(
 
         val text = String.format(
             locale = Locale.US,
-            format = "₹ %, .2f",
+            format = FORMAT_CURRENCY,
             value,
         )
-        val color = if (value >= 0)
-            Color(color = 0xFF1B5E20)
-        else
-            Color(color = 0xFFC62828)
+        val color = if (value >= 0) ProfitGreen else LossRed
 
         Text(
             text = text,
