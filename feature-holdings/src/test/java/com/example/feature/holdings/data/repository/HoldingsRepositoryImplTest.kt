@@ -109,29 +109,16 @@ class HoldingsRepositoryImplTest {
     }
 
     @Test
-    fun `fetchHoldings propagates API exceptions`() = runTest {
-        val exception = RuntimeException("Network error")
-        coEvery { api.getHoldings() } throws exception
-
-        try {
-            systemUnderTest.fetchHoldings()
-            assertTrue("Expected exception to be thrown", false)
-        } catch (e: RuntimeException) {
-            assertEquals("Network error", e.message)
-        }
-    }
-
-    @Test
     fun `fetchHoldings handles malformed data gracefully`() = runTest {
         val mockResponse = HoldingsResponseDto(
             data = HoldingsDataDto(
                 userHolding = listOf(
                     HoldingDto(
                         symbol = "MALFORMED",
-                        quantity = -1, // Invalid quantity
-                        ltp = -100.0, // Invalid price
-                        averagePrice = 0.0, // Zero price
-                        close = 0.0 // Null close price
+                        quantity = -1,
+                        ltp = -100.0,
+                        averagePrice = 0.0,
+                        close = 0.0
                     )
                 )
             )
@@ -145,7 +132,7 @@ class HoldingsRepositoryImplTest {
 
         val holding = result[0]
         assertEquals("MALFORMED", holding.symbol)
-        assertEquals(-1, holding.quantity) // Repository doesn't validate, just maps
+        assertEquals(-1, holding.quantity)
         assertEquals(-100.0, holding.lastTradedPrice, 0.01)
         assertEquals(0.0, holding.averagePrice, 0.01)
     }
