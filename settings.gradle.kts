@@ -21,3 +21,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "AyushKhandelwalTask"
 include(":app")
+include(":feature-holdings")
+include(":core-ui")

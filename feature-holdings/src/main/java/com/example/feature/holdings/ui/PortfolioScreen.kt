@@ -1,4 +1,4 @@
-package com.example.ayushkhandelwaltask.ui
+package com.example.feature.holdings.ui
 
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.background
@@ -34,13 +34,13 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.ayushkhandelwaltask.R
-import com.example.ayushkhandelwaltask.domain.model.Holding
-import com.example.ayushkhandelwaltask.domain.model.PortfolioSummary
-import com.example.ayushkhandelwaltask.presentation.model.PortfolioUiRenderedState.ERROR
-import com.example.ayushkhandelwaltask.presentation.model.PortfolioUiRenderedState.LOADING
-import com.example.ayushkhandelwaltask.presentation.model.PortfolioUiRenderedState.SUCCESS
-import com.example.ayushkhandelwaltask.presentation.viewModel.PortfolioViewModel
+import com.example.feature.holdings.R
+import com.example.feature.holdings.domain.model.Holding
+import com.example.feature.holdings.domain.model.PortfolioSummary
+import com.example.feature.holdings.presentation.model.PortfolioUiRenderedState.ERROR
+import com.example.feature.holdings.presentation.model.PortfolioUiRenderedState.LOADING
+import com.example.feature.holdings.presentation.model.PortfolioUiRenderedState.SUCCESS
+import com.example.feature.holdings.presentation.viewmodel.PortfolioViewModel
 import java.util.Locale
 
 @Composable
@@ -278,5 +278,3 @@ private fun ErrorText(message: String) {
         Text(text = message, color = Color.Red)
     }
 }
-
-

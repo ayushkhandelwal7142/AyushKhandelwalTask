@@ -13,3 +13,21 @@
 .externalNativeBuild
 .cxx
 local.properties
+
+# Build artifacts
+**/build/
+**/.gradle/
+**/generated/
+**/intermediates/
+**/outputs/
+**/tmp/
+**/*.dex
+**/*.class
+**/*.jar
+**/*.aar
+**/*.apk
+
+# Dagger generated files
+**/Dagger*.java
+**/*_Factory.java
+**/*_MembersInjector.java

@@ -46,23 +46,22 @@ android {
 }
 
 dependencies {
-    implementation(libs.coroutines.core)
-    implementation(libs.coroutines.android)
-    implementation(libs.androidx.lifecycle.viewmodel.ktx)
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(project(":feature-holdings"))
+    implementation(project(":core-ui"))
+    
+    // App-level dependencies only
     implementation(libs.androidx.activity.compose)
-    implementation(platform(libs.androidx.compose.bom))
-    implementation(libs.androidx.compose.ui)
-    implementation(libs.androidx.compose.ui.graphics)
-    implementation(libs.androidx.compose.ui.tooling.preview)
-    implementation(libs.androidx.compose.material3)
+    implementation(libs.dagger)
+    implementation(libs.androidx.material3)
+    kapt(libs.dagger.compiler)
+    
+    // Networking dependencies for DI
     implementation(libs.retrofit)
     implementation(libs.retrofit.gson)
     implementation(libs.okhttp.logging)
     implementation(libs.gson)
-    implementation(libs.dagger)
-    kapt(libs.dagger.compiler)
+    
+    // Testing
     testImplementation(libs.junit)
     testImplementation(libs.mockk)
     testImplementation(libs.androidx.arch.core.testing)
