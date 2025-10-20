@@ -15,9 +15,9 @@ import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
-import com.example.coreui.commonUtils.Dimens.CORNER_RADIUS_MEDIUM
-import com.example.coreui.commonUtils.Dimens.SPACING_MEDIUM
-import com.example.coreui.commonUtils.LightGray
+import com.example.coreui.commonUtils.Dimens.size10
+import com.example.coreui.commonUtils.Dimens.size8
+import com.example.coreui.commonUtils.LightGray20
 import com.example.coreui.commonUtils.Strings.CD_ARROW_DOWN
 import com.example.coreui.commonUtils.Strings.CD_ARROW_UP
 import com.example.coreui.commonUtils.Strings.LABEL_CURRENT_VALUE
@@ -48,10 +48,10 @@ fun PortfolioContent(
                 .clickable { onToggle() }
                 .animateContentSize()
                 .background(
-                    color = LightGray,
-                    shape = RoundedCornerShape(size = CORNER_RADIUS_MEDIUM),
+                    color = LightGray20,
+                    shape = RoundedCornerShape(size = size8),
                 )
-                .padding(horizontal = SPACING_MEDIUM),
+                .padding(horizontal = size10),
         ) {
             if (summary != null) {
                 if (isExpanded) {

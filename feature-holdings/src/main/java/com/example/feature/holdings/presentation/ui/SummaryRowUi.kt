@@ -8,7 +8,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
-import com.example.coreui.commonUtils.Dimens.SPACING_NORMAL
+import androidx.compose.ui.tooling.preview.Preview
+import com.example.coreui.commonUtils.Black
+import com.example.coreui.commonUtils.Dimens.size12
 import com.example.coreui.commonUtils.LossRed
 import com.example.coreui.commonUtils.ProfitGreen
 import com.example.coreui.commonUtils.Strings.FORMAT_CURRENCY
@@ -24,11 +26,14 @@ fun SummaryRow(
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = SPACING_NORMAL),
+            .padding(vertical = size12),
         horizontalArrangement = Arrangement.SpaceBetween,
     ) {
         Row {
-            Text(text = label)
+            Text(
+                text = label,
+                color = Black
+            )
 
             icon?.invoke()
         }
@@ -46,4 +51,15 @@ fun SummaryRow(
             fontWeight = if (bold) FontWeight.Bold else FontWeight.Normal,
         )
     }
+}
+
+@Preview
+@Composable
+private fun SummaryRowUiPreview() {
+    SummaryRow(
+        label = "Profit & Loss*",
+        value = 1200.0,
+        bold = true,
+        icon = {},
+    )
 }

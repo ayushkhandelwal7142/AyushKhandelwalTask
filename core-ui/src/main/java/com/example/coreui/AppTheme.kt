@@ -11,15 +11,40 @@ import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.sp
+import androidx.compose.ui.text.font.FontFamily.Companion.Default
+import androidx.compose.ui.text.font.FontWeight.Companion.Normal
+import com.example.coreui.commonUtils.Dimens.textSize05
+import com.example.coreui.commonUtils.Dimens.textSize16
+import com.example.coreui.commonUtils.Dimens.textSize24
 import com.example.coreui.commonUtils.Pink40
 import com.example.coreui.commonUtils.Pink80
 import com.example.coreui.commonUtils.Purple40
 import com.example.coreui.commonUtils.Purple80
 import com.example.coreui.commonUtils.PurpleGrey40
 import com.example.coreui.commonUtils.PurpleGrey80
+
+@Composable
+fun AyushTaskTheme(
+    darkTheme: Boolean = isSystemInDarkTheme(),
+    dynamicColor: Boolean = true,
+    content: @Composable () -> Unit
+) {
+    val colorScheme = when {
+        dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
+            val context = LocalContext.current
+            if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
+        }
+
+        darkTheme -> DarkColorScheme
+        else -> LightColorScheme
+    }
+
+    MaterialTheme(
+        colorScheme = colorScheme,
+        typography = Typography,
+        content = content
+    )
+}
 
 private val DarkColorScheme = darkColorScheme(
     primary = Purple80,
@@ -35,34 +60,12 @@ private val LightColorScheme = lightColorScheme(
 
 private val Typography = Typography(
     bodyLarge = TextStyle(
-        fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.Normal,
-        fontSize = 16.sp,
-        lineHeight = 24.sp,
-        letterSpacing = 0.5.sp
+        fontFamily = Default,
+        fontWeight = Normal,
+        fontSize = textSize16,
+        lineHeight = textSize24,
+        letterSpacing = textSize05
     )
 )
-
-@Composable
-fun AyushTaskTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
-    dynamicColor: Boolean = true,
-    content: @Composable () -> Unit
-) {
-    val colorScheme = when {
-        dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
-            val context = LocalContext.current
-            if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
-        }
-        darkTheme -> DarkColorScheme
-        else -> LightColorScheme
-    }
-
-    MaterialTheme(
-        colorScheme = colorScheme,
-        typography = Typography,
-        content = content
-    )
-}
 
 

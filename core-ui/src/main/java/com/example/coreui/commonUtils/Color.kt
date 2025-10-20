@@ -19,7 +19,9 @@ val LossRed = Color(0xFFC62828)
 
 // UI Colors
 val LightGray = Color(0xFFD3D3D3)
+val LightGray20 = Color(0xFFEAE8E8)
 val Gray = Color(0xFF808080)
 val DividerGray = Color(0x11000000)
+val Black = Color(0xFF000000)
 
 

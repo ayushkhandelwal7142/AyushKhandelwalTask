@@ -11,7 +11,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
-import com.example.coreui.commonUtils.Dimens.SPACING_LARGE
+import androidx.compose.ui.tooling.preview.Preview
+import com.example.coreui.commonUtils.Dimens.size16
 import com.example.coreui.commonUtils.Strings.NO_INTERNET_CONNECTION
 import com.example.coreui.commonUtils.Strings.NO_INTERNET_MESSAGE
 import com.example.coreui.commonUtils.Strings.RETRY
@@ -24,7 +25,7 @@ fun NoInternetState(
     Column(
         modifier = modifier
             .fillMaxSize()
-            .padding(SPACING_LARGE),
+            .padding(size16),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -37,7 +38,7 @@ fun NoInternetState(
             text = NO_INTERNET_CONNECTION,
             style = MaterialTheme.typography.headlineMedium,
             textAlign = TextAlign.Center,
-            modifier = Modifier.padding(vertical = SPACING_LARGE)
+            modifier = Modifier.padding(vertical = size16)
         )
         
         Text(
@@ -45,14 +46,20 @@ fun NoInternetState(
             style = MaterialTheme.typography.bodyLarge,
             textAlign = TextAlign.Center,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
-            modifier = Modifier.padding(bottom = SPACING_LARGE)
+            modifier = Modifier.padding(bottom = size16)
         )
         
         Button(
             onClick = onRetry,
-            modifier = Modifier.padding(top = SPACING_LARGE)
+            modifier = Modifier.padding(top = size16)
         ) {
             Text(text = RETRY)
         }
     }
+}
+
+@Preview
+@Composable
+private fun NoInternetStatePreview() {
+    NoInternetState()
 }

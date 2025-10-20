@@ -12,7 +12,7 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
         appComponent = DaggerAppComponent.builder()
-            .contextModule(ContextModule(this))
+            .contextModule(ContextModule(context = this))
             .build()
     }
 }

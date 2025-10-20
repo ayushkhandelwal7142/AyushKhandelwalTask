@@ -48,7 +48,7 @@ class MainActivity : ComponentActivity() {
                     }
                 ) { innerPadding ->
                     Box(
-                        modifier = Modifier.padding(innerPadding)
+                        modifier = Modifier.padding(paddingValues = innerPadding)
                     ) {
                         PortfolioScreen(
                             modifier = Modifier.fillMaxSize(),

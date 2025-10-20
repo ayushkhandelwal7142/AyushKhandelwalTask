@@ -6,7 +6,7 @@ package com.example.coreui.commonUtils
  */
 object Strings {
     // App Bar Strings
-    const val PORTFOLIO_TITLE = "PORTFOLIO"
+    const val PORTFOLIO_TITLE = "Portfolio"
 
     // Bottom Navigation Strings
     const val NAV_PORTFOLIO = "Portfolio"

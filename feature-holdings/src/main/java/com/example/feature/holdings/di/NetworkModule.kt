@@ -10,6 +10,10 @@ import javax.inject.Singleton
 
 @Module
 class NetworkModule {
+    companion object {
+        private const val BASE_URL = "https://35dee773a9ec441e9f38d5fc249406ce.api.mockbin.io"
+    }
+
     @Provides
     @Singleton
     fun provideOkHttp(): OkHttpClient {
@@ -25,7 +29,7 @@ class NetworkModule {
     @Singleton
     fun provideRetrofit(client: OkHttpClient): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("https://35dee773a9ec441e9f38d5fc249406ce.api.mockbin.io")
+            .baseUrl(BASE_URL)
             .client(client)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
