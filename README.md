@@ -6,9 +6,11 @@ An Android application that displays a list of stock holdings with **expandable 
 The app fetches data from a provided API and calculates key metrics like **Current Value**, **Total Investment**, **Total P&L**, and **Today’s P&L**.
 
 ---
-<img src = "https://github.com/user-attachments/assets/18605050-600b-40c9-bb62-595ef926d963" width = "200" height = "400">
-<img src = "https://github.com/user-attachments/assets/84481e5e-f967-4081-80e1-0f55d3b4d616" width = "200" height = "400">
-<img src = "https://github.com/user-attachments/assets/b10b50f5-a49e-4cc9-b0b3-40818eb4912e" width = "200" height = "400">
+<img src = "https://github.com/user-attachments/assets/33f1956c-1e60-4db9-9383-dd16c7c78769" width = "200" height = "400">
+<img src = "https://github.com/user-attachments/assets/d761988b-9f23-43ca-b1fb-db026ea913ef" width = "200" height = "400">
+<img src = "https://github.com/user-attachments/assets/cafda08a-3900-4962-869d-624abaf766ac" width = "200" height = "400">
+<img src = "https://github.com/user-attachments/assets/9d64de3e-2569-4b57-8845-a0d984b6cfd3" width = "200" height = "400">
+<img src = "https://github.com/user-attachments/assets/534d8e74-46e4-43b6-8309-c2564871a7d5" width = "200" height = "400">
 
 
 ## 🚀 Features
