@@ -33,12 +33,15 @@ fun PortfolioContent(
     holdings: List<Holding>,
     isExpanded: Boolean,
     onToggle: () -> Unit,
-    summary: PortfolioSummary?
+    summary: PortfolioSummary?,
+    formatCurrency: (Double) -> String,
 ) {
     Column(modifier = Modifier.fillMaxSize()) {
         LazyColumn(modifier = Modifier.weight(weight = 1f)) {
             items(items = holdings) { holding ->
-                HoldingRow(holding = holding)
+                HoldingRow(holding = holding) { amount ->
+                    formatCurrency(amount)
+                }
             }
         }
         HorizontalDivider()
@@ -55,12 +58,12 @@ fun PortfolioContent(
         ) {
             if (summary != null) {
                 if (isExpanded) {
-                    SummaryRow(label = LABEL_CURRENT_VALUE, value = summary.currentValue)
-                    SummaryRow(label = LABEL_TOTAL_INVESTMENT, value = summary.totalInvestment)
-                    SummaryRow(label = LABEL_TODAY_PNL, value = summary.todayPnl)
+                    SummaryRow(label = LABEL_CURRENT_VALUE, value = summary.currentValue, formatCurrency = formatCurrency)
+                    SummaryRow(label = LABEL_TOTAL_INVESTMENT, value = summary.totalInvestment, formatCurrency = formatCurrency)
+                    SummaryRow(label = LABEL_TODAY_PNL, value = summary.todayPnl, formatCurrency = formatCurrency)
                     HorizontalDivider()
                 }
-                SummaryRow(label = LABEL_TOTAL_PNL, value = summary.totalPnl, bold = true) {
+                SummaryRow(label = LABEL_TOTAL_PNL, value = summary.totalPnl, bold = true, formatCurrency = formatCurrency) {
                     Icon(
                         painter = painterResource(id = if (isExpanded) R.drawable.ic_arrow_down else R.drawable.ic_arrow_up),
                         contentDescription = if (isExpanded) CD_ARROW_DOWN else CD_ARROW_UP,

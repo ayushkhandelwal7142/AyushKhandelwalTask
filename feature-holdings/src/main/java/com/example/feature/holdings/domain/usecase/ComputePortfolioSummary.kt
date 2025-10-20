@@ -2,6 +2,9 @@ package com.example.feature.holdings.domain.usecase
 
 import com.example.feature.holdings.domain.model.Holding
 import com.example.feature.holdings.domain.model.PortfolioSummary
+import java.text.NumberFormat
+import java.util.Locale
+import kotlin.math.abs
 
 class ComputePortfolioSummary {
     operator fun invoke(holdings: List<Holding>): PortfolioSummary {
@@ -22,6 +25,26 @@ class ComputePortfolioSummary {
             totalPnl = totalPnl,
             todayPnl = todayPnl,
         )
+    }
+
+    fun formatCurrency(
+        amount: Double,
+        currencySymbol: String = "₹",
+    ): String {
+        val locale = Locale("en", "IN")
+
+        val formatter = NumberFormat.getNumberInstance(locale).apply {
+            minimumFractionDigits = 2
+            maximumFractionDigits = 2
+        }
+
+        val formattedAmount = formatter.format(abs(amount))
+
+        return if (amount >= 0) {
+            "$currencySymbol$formattedAmount"
+        } else {
+            "–$currencySymbol$formattedAmount"
+        }
     }
 }
 

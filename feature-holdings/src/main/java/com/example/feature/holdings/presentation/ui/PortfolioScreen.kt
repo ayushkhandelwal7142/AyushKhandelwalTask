@@ -39,6 +39,7 @@ fun PortfolioScreen(
                     isExpanded = state.isExpanded,
                     onToggle = viewModel::toggleExpanded,
                     summary = state.summary,
+                    formatCurrency = viewModel::formatCurrency
                 )
             }
         }

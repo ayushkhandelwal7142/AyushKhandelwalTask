@@ -30,16 +30,16 @@ import com.example.coreui.commonUtils.DividerGray
 import com.example.coreui.commonUtils.Gray
 import com.example.coreui.commonUtils.LossRed
 import com.example.coreui.commonUtils.ProfitGreen
-import com.example.coreui.commonUtils.Strings.CURRENCY_SYMBOL
-import com.example.coreui.commonUtils.Strings.FORMAT_DECIMAL
 import com.example.coreui.commonUtils.Strings.LABEL_LTP
 import com.example.coreui.commonUtils.Strings.LABEL_NET_QTY
 import com.example.coreui.commonUtils.Strings.LABEL_PNL
 import com.example.feature.holdings.domain.model.Holding
-import java.util.Locale
 
 @Composable
-fun HoldingRow(holding: Holding) {
+fun HoldingRow(
+    holding: Holding,
+    formatCurrency: (Double) -> String,
+) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -87,11 +87,7 @@ fun HoldingRow(holding: Holding) {
                 horizontalAlignment = Alignment.End,
                 verticalArrangement = Arrangement.Center,
             ) {
-                val formattedLtpString = String.format(
-                    locale = Locale.US,
-                    format = FORMAT_DECIMAL,
-                    holding.lastTradedPrice,
-                )
+                val formattedLtpString = formatCurrency(holding.lastTradedPrice)
                 Text(
                     text = buildAnnotatedString {
                         withStyle(
@@ -107,7 +103,7 @@ fun HoldingRow(holding: Holding) {
                                 fontSize = textSize18,
                             )
                         ) {
-                            append("$CURRENCY_SYMBOL $formattedLtpString")
+                            append(formattedLtpString)
                         }
                     },
                     textAlign = TextAlign.Center,
@@ -116,11 +112,7 @@ fun HoldingRow(holding: Holding) {
                 Spacer(modifier = Modifier.padding(vertical = 4.dp))
 
                 val pnl = (holding.lastTradedPrice - holding.averagePrice) * holding.quantity
-                val formattedPnlString = String.format(
-                    locale = Locale.US,
-                    format = FORMAT_DECIMAL,
-                    pnl,
-                )
+                val formattedPnlCurrency = formatCurrency(pnl)
 
                 Text(
                     text = buildAnnotatedString {
@@ -138,7 +130,7 @@ fun HoldingRow(holding: Holding) {
                                 color = if (pnl >= 0) ProfitGreen else LossRed,
                             )
                         ) {
-                            append("$CURRENCY_SYMBOL $formattedPnlString")
+                            append(formattedPnlCurrency)
                         }
                     },
                     textAlign = TextAlign.Center,
@@ -161,5 +153,8 @@ private val holdingPreviewData = Holding(
 @Preview
 @Composable
 fun HoldingRowPreview() {
-    HoldingRow(holding = holdingPreviewData)
+    HoldingRow(
+        holding = holdingPreviewData,
+        formatCurrency = { amount -> "" }
+    )
 }

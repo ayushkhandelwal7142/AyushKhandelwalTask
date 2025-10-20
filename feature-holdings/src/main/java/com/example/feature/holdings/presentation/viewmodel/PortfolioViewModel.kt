@@ -65,4 +65,6 @@ class PortfolioViewModel @Inject constructor(
     fun toggleExpanded() {
         _state.update { it.copy(isExpanded = !_state.value.isExpanded) }
     }
+
+    fun formatCurrency(amount: Double) = computePortfolioSummary.formatCurrency(amount = amount)
 }
